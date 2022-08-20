@@ -1,11 +1,13 @@
 {
   "projectType": "application",
   "sourceRoot": "apps/ngshop/src",
-  "prefix": "dmtrsprod",
+  "prefix": "ngshop",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/ngshop",
         "index": "apps/ngshop/src/index.html",
@@ -13,8 +15,13 @@
         "polyfills": "apps/ngshop/src/polyfills.ts",
         "tsConfig": "apps/ngshop/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/ngshop/src/favicon.ico", "apps/ngshop/src/assets"],
-        "styles": ["apps/ngshop/src/styles.scss"],
+        "assets": [
+          "apps/ngshop/src/favicon.ico",
+          "apps/ngshop/src/assets"
+        ],
+        "styles": [
+          "apps/ngshop/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -71,12 +78,17 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/ngshop/**/*.ts", "apps/ngshop/**/*.html"]
+        "lintFilePatterns": [
+          "apps/ngshop/**/*.ts",
+          "apps/ngshop/**/*.html"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/ngshop"],
+      "outputs": [
+        "coverage/apps/ngshop"
+      ],
       "options": {
         "jestConfig": "apps/ngshop/jest.config.ts",
         "passWithNoTests": true
