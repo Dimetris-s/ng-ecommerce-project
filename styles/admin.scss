@@ -1,3 +1,21 @@
-.color-red {
-  color: red;
-}
+@import "./base/colors";
+@import "./base/vars";
+@import "./base/fonts";
+@import './base/mixins';
+
+// Libraries
+@import "~primeflex/primeflex.min.css";
+@import "~primeicons/primeicons.css";
+@import "~primeng/resources/themes/saga-blue/theme.css";
+@import "~primeng/resources/primeng.min.css";
+@import "./base/configuration";
+
+// Pages
+@import "./apps/admin/pages/dashboard";
+@import "./apps/admin/pages/categories";
+
+// Shared
+@import "./apps/admin/shared/shell";
+
+// Libs
+

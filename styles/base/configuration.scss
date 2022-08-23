@@ -1,7 +1,14 @@
-body {
+@import '~normalize.css/normalize.css';
+
+body, .p-component {
   font-family: 'Open Sans', sans-serif;
 }
 
 a {
   text-decoration: none;
+  cursor: pointer;
+}
+
+ul {
+  @include reset-list;
 }
