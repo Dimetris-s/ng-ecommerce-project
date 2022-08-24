@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -15,52 +16,60 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 const UI_MODULES = [
-    ButtonModule,
-    ToolbarModule,
-    CardModule,
-    TableModule,
-    InputTextModule
+  ButtonModule,
+  ToolbarModule,
+  CardModule,
+  TableModule,
+  InputTextModule,
+  ToastModule
 ];
 
 const routes: Routes = [
-    {
-        path: '',
-        component: ShellComponent,
-        children: [
-            {
-                path: 'dashboard',
-                component: DashboardComponent
-            },
-            {
-                path: 'categories',
-                component: CategoriesListComponent
-            },
-            {
-                path: 'categories/form',
-                component: CategoriesFormComponent
-            }
-        ]
-    }
+  {
+    path: '',
+    component: ShellComponent,
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      {
+        path: 'categories',
+        component: CategoriesListComponent
+      },
+      {
+        path: 'categories/form',
+        component: CategoriesFormComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        DashboardComponent,
-        ShellComponent,
-        SidebarComponent,
-        CategoriesListComponent,
-        CategoriesFormComponent
-    ],
-    imports: [
-        BrowserModule,
-        RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
-        HttpClientModule,
-        ...UI_MODULES
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    ShellComponent,
+    SidebarComponent,
+    CategoriesListComponent,
+    CategoriesFormComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ...UI_MODULES
+  ],
+  providers: [MessageService],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}
