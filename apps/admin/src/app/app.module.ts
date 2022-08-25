@@ -8,68 +8,75 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ShellComponent } from './shared/shell/shell.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { CategoriesListComponent } from './categories/categories-list/categories-list.component';
+import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
 
 import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
+import { CategoriesFormComponent } from './pages/categories/categories-form/categories-form.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 const UI_MODULES = [
-  ButtonModule,
-  ToolbarModule,
-  CardModule,
-  TableModule,
-  InputTextModule,
-  ToastModule
+    ButtonModule,
+    ToolbarModule,
+    CardModule,
+    TableModule,
+    InputTextModule,
+    ToastModule,
+    ConfirmDialogModule,
+    ColorPickerModule
 ];
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ShellComponent,
-    children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent
-      },
-      {
-        path: 'categories',
-        component: CategoriesListComponent
-      },
-      {
-        path: 'categories/form',
-        component: CategoriesFormComponent
-      }
-    ]
-  }
+    {
+        path: '',
+        component: ShellComponent,
+        children: [
+            {
+                path: 'dashboard',
+                component: DashboardComponent
+            },
+            {
+                path: 'categories',
+                component: CategoriesListComponent
+            },
+            {
+                path: 'categories/form',
+                component: CategoriesFormComponent
+            },
+            {
+                path: 'categories/form/:categoryId',
+                component: CategoriesFormComponent
+            }
+        ]
+    }
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DashboardComponent,
-    ShellComponent,
-    SidebarComponent,
-    CategoriesListComponent,
-    CategoriesFormComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ...UI_MODULES
-  ],
-  providers: [MessageService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        DashboardComponent,
+        ShellComponent,
+        SidebarComponent,
+        CategoriesListComponent,
+        CategoriesFormComponent
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ...UI_MODULES
+    ],
+    providers: [MessageService, ConfirmationService],
+    bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

@@ -18,7 +18,8 @@
             "@dmtrsprod/orders": ["libs/orders/src/index.ts"],
             "@dmtrsprod/products": ["libs/products/src/index.ts"],
             "@dmtrsprod/ui": ["libs/ui/src/index.ts"],
-            "@dmtrsprod/users": ["libs/users/src/index.ts"]
+            "@dmtrsprod/users": ["libs/users/src/index.ts"],
+            "@env/*": ["environments/*"]
         }
     },
     "exclude": ["node_modules", "tmp"]
