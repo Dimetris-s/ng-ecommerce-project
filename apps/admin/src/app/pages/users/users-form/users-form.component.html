@@ -1,0 +1,89 @@
+<p-toast></p-toast>
+<div class='admin-page'>
+  <p-card [header]='isEditing ? "Edit user" : "Add user"' subheader='You can add or edit users here'>
+    <div class='grid mb-5'>
+      <div class='col-12'>
+        <p-toolbar>
+          <div class='p-toolbar-group-left'></div>
+          <div class='p-toolbar-group-right'>
+            <p-button (click)='onSubmit()' [label]='isEditing ? "Update" : "Create"' icon='pi pi-plus' styleClass='p-button-primary'></p-button>
+            <p-button (click)='goBack()' label='Cancel' icon='pi pi-arrow-circle-left' class='ml-3' styleClass='p-button-secondary'></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class='grid'>
+      <div class='col-12'>
+        <form [formGroup]='form'>
+          <div class="grid">
+            <div class="field col">
+              <label for="name">Name</label>
+              <input formControlName='name' id="name" type="text" pInputText class="w-full text-sm">
+              <span *ngIf='userForm.name.invalid && isSubmitted' class='p-error'>Name is required</span>
+            </div>
+            <div class="field col">
+              <label for="name">Email</label>
+              <input formControlName='email' id="email" type="text" pInputText class="w-full text-sm">
+              <ng-container *ngIf='userForm.email.invalid && isSubmitted' >
+                <span class='p-error' *ngIf="userForm.email.errors.required">Email is required</span>
+                <span class='p-error' *ngIf="userForm.email.errors.email">Email is invalid</span>
+              </ng-container>
+            </div>
+            <div class="field col">
+              <label for="name">Password</label>
+              <input formControlName='password' id="password" type="password" pInputText class="w-full text-sm">
+              <span *ngIf='userForm.password.invalid && isSubmitted' class='p-error'>Password is required</span>
+            </div>
+          </div>
+          <div class="grid p-fluid">
+            <div class="col-4 field">
+              <label for="name">Phone</label>
+              <br>
+              <p-inputMask mask="999 999-9999" formControlName='phone' id="phone" class="w-full text-sm" placeholder="999 999-9999"></p-inputMask>
+              <span *ngIf='userForm.phone.invalid && isSubmitted' class='p-error'>Phone is required</span>
+            </div>
+            <div class="col field">
+              <label for="isAdmin">Is Admin</label>
+              <br>
+              <p-inputSwitch formControlName="isAdmin" id="isAdmin" ></p-inputSwitch>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="field col">
+              <label for="street">Street</label>
+              <input formControlName='street' id="street" type="text" pInputText class="w-full text-sm">
+            </div>
+            <div class="field col">
+              <label for="name">Apartment</label>
+              <input formControlName='apartment' id="apartment" type="text" pInputText class="w-full text-sm">
+            </div>
+            <div class="field col">
+              <label for="zip">Zip Code</label>
+              <input formControlName='zip' id="zip" type="text" pInputText class="w-full text-sm">
+            </div>
+          </div>
+          <div class="grid  p-fluid">
+            <div class="field col-4">
+              <label for="city">City</label>
+              <input formControlName='city' id="city" type="text" pInputText class="w-full text-sm">
+            </div>
+            <div class="field col-4">
+              <label for="country">Country</label>
+              <p-dropdown
+                optionValue="code"
+                [filter]="true"
+                filterBy="name"
+                [showClear]="true"
+                placeholder="Select a Country"
+                [options]="countries"
+                formControlName="country"
+                id="country"
+                optionLabel="name"
+              ></p-dropdown>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>

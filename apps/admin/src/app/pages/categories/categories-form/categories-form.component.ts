@@ -22,7 +22,7 @@ type CategoryForm = FormGroup<{
     templateUrl: './categories-form.component.html'
 })
 export class CategoriesFormComponent implements OnInit {
-    form: CategoryForm | undefined;
+    form: CategoryForm;
     isSubmitted = false;
     isEditing = false;
     categoryId: string | null;
@@ -121,7 +121,7 @@ export class CategoriesFormComponent implements OnInit {
         }
     }
     goBack() {
-        this.router.navigate(['/categories']);
+        this.location.back();
     }
 
     get categoryForm() {
