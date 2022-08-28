@@ -41,7 +41,7 @@
                   <p-tag severity="danger" icon="pi pi-times" [rounded]="true"></p-tag>
                 </ng-template>
               </td>
-              <td>{{user.country}}</td>
+              <td>{{getCountryName(user.country)}}</td>
               <td>
                 <p-button
                   (click)="updateUser(user.id)"

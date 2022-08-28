@@ -20,7 +20,7 @@ type ProductForm = FormGroup<{
     isFeatured: FormControl<boolean>;
     description: FormControl<string>;
     richDescription: FormControl<string>;
-    image: FormControl<any>;
+    image: FormControl;
 }>;
 
 @Component({

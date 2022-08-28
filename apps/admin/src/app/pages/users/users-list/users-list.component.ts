@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User, UserService } from '@dmtrsprod/users';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import * as countryLib from 'i18n-iso-countries';
 
-declare const require;
 @Component({
     selector: 'admin-users-list',
     templateUrl: './users-list.component.html'
@@ -20,16 +18,12 @@ export class UsersListComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        countryLib.registerLocale(require('i18n-iso-countries/langs/en.json'));
         this._loadUsers();
     }
 
     private _loadUsers() {
         this.userService.getUsers().subscribe((users) => {
-            this.users = users.map((user) => ({
-                ...user,
-                country: countryLib.getName(user.country, 'en')
-            }));
+            this.users = users;
         });
     }
 
@@ -55,5 +49,8 @@ export class UsersListComponent implements OnInit {
     }
     updateUser(id: string) {
         this.router.navigateByUrl(`users/form/${id}`);
+    }
+    getCountryName(countryKey: string) {
+        if (countryKey) return this.userService.getCountry(countryKey);
     }
 }

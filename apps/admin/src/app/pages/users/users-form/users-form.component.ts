@@ -10,9 +10,6 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User, UserService } from '@dmtrsprod/users';
 import { timer } from 'rxjs';
-import * as countryLib from 'i18n-iso-countries';
-
-declare const require;
 
 type UserForm = FormGroup<{
     name: FormControl<string>;
@@ -27,18 +24,13 @@ type UserForm = FormGroup<{
     country: FormControl<string>;
 }>;
 
-type Country = {
-    code: string;
-    name: string;
-};
-
 @Component({
     selector: 'admin-users-form',
     templateUrl: './users-form.component.html'
 })
 export class UsersFormComponent implements OnInit {
     form: UserForm;
-    countries: Country[] = [];
+    countries = [];
     isSubmitted = false;
     isEditing = false;
     userId: string | null;
@@ -59,12 +51,7 @@ export class UsersFormComponent implements OnInit {
     }
 
     private _getCountriesList() {
-        countryLib.registerLocale(require('i18n-iso-countries/langs/en.json'));
-        const countryNames = countryLib.getNames('en', { select: 'official' });
-        this.countries = Object.entries(countryNames).map(([code, name]) => ({
-            name,
-            code
-        }));
+        this.countries = this.userService.getCountries();
     }
     private _checkEditMode() {
         this.route.params.subscribe(({ userId }) => {
