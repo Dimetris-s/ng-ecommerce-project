@@ -33,6 +33,10 @@ import { UsersListComponent } from './pages/users/users-list/users-list.componen
 import { UsersFormComponent } from './pages/users/users-form/users-form.component';
 import { TagModule } from 'primeng/tag';
 import { InputMaskModule } from 'primeng/inputmask';
+import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
+import { OrderDetailsComponent } from './pages/orders/order-details/order-details.component';
+import { FieldsetModule } from 'primeng/fieldset';
+import { UsersModule } from '@dmtrsprod/users';
 
 const UI_MODULES = [
     ButtonModule,
@@ -50,7 +54,8 @@ const UI_MODULES = [
     EditorModule,
     ImageModule,
     TagModule,
-    InputMaskModule
+    InputMaskModule,
+    FieldsetModule
 ];
 
 const routes: Routes = [
@@ -97,6 +102,14 @@ const routes: Routes = [
             {
                 path: 'users/form/:userId',
                 component: UsersFormComponent
+            },
+            {
+                path: 'orders',
+                component: OrdersListComponent
+            },
+            {
+                path: 'orders/:id',
+                component: OrderDetailsComponent
             }
         ]
     }
@@ -113,7 +126,9 @@ const routes: Routes = [
         ProductsListComponent,
         ProductsFormComponent,
         UsersListComponent,
-        UsersFormComponent
+        UsersFormComponent,
+        OrdersListComponent,
+        OrderDetailsComponent
     ],
     imports: [
         BrowserModule,
@@ -122,7 +137,8 @@ const routes: Routes = [
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        ...UI_MODULES
+        ...UI_MODULES,
+        UsersModule
     ],
     providers: [MessageService, ConfirmationService],
     bootstrap: [AppComponent]
