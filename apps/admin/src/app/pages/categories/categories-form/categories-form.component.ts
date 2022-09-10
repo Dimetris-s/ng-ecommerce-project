@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
@@ -8,7 +8,7 @@ import {
 import { Category, CategoryService } from '@dmtrsprod/products';
 import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
-import { timer } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
 type CategoryForm = FormGroup<{
@@ -21,11 +21,12 @@ type CategoryForm = FormGroup<{
     selector: 'admin-categories-form',
     templateUrl: './categories-form.component.html'
 })
-export class CategoriesFormComponent implements OnInit {
+export class CategoriesFormComponent implements OnInit, OnDestroy {
     form: CategoryForm;
     isSubmitted = false;
     isEditing = false;
     categoryId: string | null;
+    endsubs$: Subject<any> = new Subject();
 
     constructor(
         private formBuilder: FormBuilder,
@@ -43,6 +44,9 @@ export class CategoriesFormComponent implements OnInit {
             color: ['#fff']
         });
         this._checkEditMode();
+    }
+    ngOnDestroy() {
+        this.endsubs$.complete();
     }
 
     private _updateCategory(category: Category) {

@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product, ProductService } from '@dmtrsprod/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'admin-products-list',
     templateUrl: './products-list.component.html'
 })
-export class ProductsListComponent implements OnInit {
+export class ProductsListComponent implements OnInit, OnDestroy {
     products: Product[] = [];
+    endsubs$: Subject<any> = new Subject();
+
     constructor(
         private productService: ProductService,
         private confirmationService: ConfirmationService,
@@ -19,22 +22,30 @@ export class ProductsListComponent implements OnInit {
     ngOnInit(): void {
         this._loadProducts();
     }
-
+    ngOnDestroy() {
+        this.endsubs$.complete();
+    }
     private _loadProducts() {
-        this.productService.getProducts().subscribe((products) => {
-            this.products = products;
-        });
+        this.productService
+            .getProducts()
+            .pipe(takeUntil(this.endsubs$))
+            .subscribe((products) => {
+                this.products = products;
+            });
     }
 
     private _deleteProduct(id: string) {
-        this.productService.deleteProduct(id).subscribe(() => {
-            this._loadProducts();
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Product has been deleted!'
+        this.productService
+            .deleteProduct(id)
+            .pipe(takeUntil(this.endsubs$))
+            .subscribe(() => {
+                this._loadProducts();
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Product has been deleted!'
+                });
             });
-        });
     }
 
     updateProduct(id: string) {

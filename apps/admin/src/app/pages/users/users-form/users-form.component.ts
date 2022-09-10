@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
@@ -9,7 +9,7 @@ import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User, UserService } from '@dmtrsprod/users';
-import { timer } from 'rxjs';
+import { Subject, takeUntil, timer } from 'rxjs';
 
 type UserForm = FormGroup<{
     name: FormControl<string>;
@@ -28,12 +28,13 @@ type UserForm = FormGroup<{
     selector: 'admin-users-form',
     templateUrl: './users-form.component.html'
 })
-export class UsersFormComponent implements OnInit {
+export class UsersFormComponent implements OnInit, OnDestroy {
     form: UserForm;
     countries = [];
     isSubmitted = false;
     isEditing = false;
     userId: string | null;
+    endsubs$: Subject<any> = new Subject();
 
     constructor(
         private fb: FormBuilder,
@@ -49,7 +50,9 @@ export class UsersFormComponent implements OnInit {
         this._checkEditMode();
         this._getCountriesList();
     }
-
+    ngOnDestroy() {
+        this.endsubs$.complete();
+    }
     private _getCountriesList() {
         this.countries = this.userService.getCountries();
     }
@@ -89,46 +92,52 @@ export class UsersFormComponent implements OnInit {
         });
     }
     private _createUser(user: User) {
-        this.userService.createUser(user).subscribe({
-            next: (user) => {
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Success!',
-                    detail: `User ${user.name} has successfully created!`
-                });
-                timer(2000).subscribe(() => {
-                    this.location.back();
-                });
-            },
-            error: () => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error!',
-                    detail: 'User has not created!'
-                });
-            }
-        });
+        this.userService
+            .createUser(user)
+            .pipe(takeUntil(this.endsubs$))
+            .subscribe({
+                next: (user) => {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Success!',
+                        detail: `User ${user.name} has successfully created!`
+                    });
+                    timer(2000).subscribe(() => {
+                        this.location.back();
+                    });
+                },
+                error: () => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error!',
+                        detail: 'User has not created!'
+                    });
+                }
+            });
     }
     private _updateUser(user: User) {
-        this.userService.updateUser(user).subscribe({
-            next: () => {
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Success!',
-                    detail: 'User has successfully updated!'
-                });
-                timer(2000).subscribe(() => {
-                    this.location.back();
-                });
-            },
-            error: () => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error!',
-                    detail: 'User has not updated!'
-                });
-            }
-        });
+        this.userService
+            .updateUser(user)
+            .pipe(takeUntil(this.endsubs$))
+            .subscribe({
+                next: () => {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Success!',
+                        detail: 'User has successfully updated!'
+                    });
+                    timer(2000).subscribe(() => {
+                        this.location.back();
+                    });
+                },
+                error: () => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error!',
+                        detail: 'User has not updated!'
+                    });
+                }
+            });
     }
     onSubmit() {
         this.isSubmitted = true;
