@@ -4,12 +4,12 @@
   </div>
   <div class="links">
     <ul>
-      <li><a routerLinkActive="active" routerLink="/dashboard"><i class="pi pi-home"></i>Dashboard</a></li>
+      <li><a routerLinkActive="active" routerLink="/"><i class="pi pi-home"></i>Dashboard</a></li>
       <li><a routerLinkActive="active" routerLink="/products"><i class="pi pi-briefcase"></i>Products</a></li>
       <li><a routerLinkActive="active" routerLink="/categories"><i class="pi pi-list"></i>Categories</a></li>
       <li><a routerLinkActive="active" routerLink="/orders"><i class="pi pi-shopping-cart"></i>Orders</a></li>
       <li><a routerLinkActive="active" routerLink="/users"><i class="pi pi-users"></i>Users</a></li>
-      <li><a routerLinkActive="active" routerLink="/logout" class="logout"><i class="pi pi-sign-out"></i>Logout</a></li>
+      <li><a routerLinkActive="active" (click)="logoutUser()" class="logout"><i class="pi pi-sign-out"></i>Logout</a></li>
     </ul>
   </div>
 </div>

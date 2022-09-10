@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -36,7 +36,12 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
 import { OrderDetailsComponent } from './pages/orders/order-details/order-details.component';
 import { FieldsetModule } from 'primeng/fieldset';
-import { UsersModule } from '@dmtrsprod/users';
+import {
+    UsersModule,
+    AuthGuardService,
+    JwtInterceptor
+} from '@dmtrsprod/users';
+import { AppRouterModule } from './router.module';
 
 const UI_MODULES = [
     ButtonModule,
@@ -58,63 +63,6 @@ const UI_MODULES = [
     FieldsetModule
 ];
 
-const routes: Routes = [
-    {
-        path: '',
-        component: ShellComponent,
-        children: [
-            {
-                path: 'dashboard',
-                component: DashboardComponent
-            },
-            {
-                path: 'categories',
-                component: CategoriesListComponent
-            },
-            {
-                path: 'categories/form',
-                component: CategoriesFormComponent
-            },
-            {
-                path: 'categories/form/:categoryId',
-                component: CategoriesFormComponent
-            },
-            {
-                path: 'products',
-                component: ProductsListComponent
-            },
-            {
-                path: 'products/form',
-                component: ProductsFormComponent
-            },
-            {
-                path: 'products/form/:productId',
-                component: ProductsFormComponent
-            },
-            {
-                path: 'users',
-                component: UsersListComponent
-            },
-            {
-                path: 'users/form',
-                component: UsersFormComponent
-            },
-            {
-                path: 'users/form/:userId',
-                component: UsersFormComponent
-            },
-            {
-                path: 'orders',
-                component: OrdersListComponent
-            },
-            {
-                path: 'orders/:id',
-                component: OrderDetailsComponent
-            }
-        ]
-    }
-];
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -133,14 +81,18 @@ const routes: Routes = [
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+        AppRouterModule,
         ...UI_MODULES,
         UsersModule
     ],
-    providers: [MessageService, ConfirmationService],
+    providers: [
+        MessageService,
+        ConfirmationService,
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

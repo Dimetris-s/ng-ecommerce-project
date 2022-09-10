@@ -8,6 +8,7 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { Router } from '@angular/router';
 
 type LoginForm = FormGroup<{
     email: FormControl<string>;
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private authService: AuthService,
-        private ls: LocalStorageService
+        private ls: LocalStorageService,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -49,6 +51,7 @@ export class LoginComponent implements OnInit {
                 (user) => {
                     this.authError = '';
                     this.ls.setToken(user.token);
+                    this.router.navigate(['/']);
                 },
                 (error: HttpErrorResponse) => {
                     if (error.status === 404 || error.status === 400) {
