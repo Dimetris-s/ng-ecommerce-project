@@ -30,7 +30,10 @@
         "lint": {
             "executor": "@nrwl/linter:eslint",
             "options": {
-                "lintFilePatterns": ["libs/orders/**/*.ts", "libs/orders/**/*.html"]
+                "lintFilePatterns": [
+                    "libs/orders/**/*.ts",
+                    "libs/orders/**/*.html"
+                ]
             }
         }
     },

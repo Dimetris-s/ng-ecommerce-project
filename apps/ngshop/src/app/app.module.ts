@@ -7,11 +7,11 @@ import { ProductListComponent } from './pages/product-list/product-list.componen
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { UiModule } from '@dmtrsprod/ui';
 import { AccordionModule } from 'primeng/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './shared/nav/nav.component';
-import { ProductsModule } from "@dmtrsprod/products";
+import { ProductsModule } from '@dmtrsprod/products';
+import { UiModule } from '@dmtrsprod/ui';
 
 const routes: Routes = [
     {
@@ -33,14 +33,14 @@ const routes: Routes = [
         FooterComponent,
         NavComponent
     ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(routes),
-    UiModule,
-    AccordionModule,
-    BrowserAnimationsModule,
-    ProductsModule
-  ],
+    imports: [
+        BrowserModule,
+        RouterModule.forRoot(routes),
+        AccordionModule,
+        BrowserAnimationsModule,
+        ProductsModule,
+        UiModule
+    ],
     providers: [],
     bootstrap: [AppComponent]
 })
