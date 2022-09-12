@@ -10,6 +10,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { UiModule } from '@dmtrsprod/ui';
 import { AccordionModule } from 'primeng/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavComponent } from './shared/nav/nav.component';
+import { ProductsModule } from "@dmtrsprod/products";
 
 const routes: Routes = [
     {
@@ -28,15 +30,17 @@ const routes: Routes = [
         HomePageComponent,
         ProductListComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        NavComponent
     ],
-    imports: [
-        BrowserModule,
-        RouterModule.forRoot(routes),
-        UiModule,
-        AccordionModule,
-        BrowserAnimationsModule
-    ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    UiModule,
+    AccordionModule,
+    BrowserAnimationsModule,
+    ProductsModule
+  ],
     providers: [],
     bootstrap: [AppComponent]
 })

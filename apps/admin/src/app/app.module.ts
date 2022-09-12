@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ShellComponent } from './shared/shell/shell.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
@@ -38,7 +37,6 @@ import { OrderDetailsComponent } from './pages/orders/order-details/order-detail
 import { FieldsetModule } from 'primeng/fieldset';
 import {
     UsersModule,
-    AuthGuardService,
     JwtInterceptor
 } from '@dmtrsprod/users';
 import { AppRouterModule } from './router.module';

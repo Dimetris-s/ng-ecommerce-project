@@ -12,3 +12,7 @@ a {
 ul {
   @include reset-list;
 }
+
+p {
+  margin: 0;
+}
